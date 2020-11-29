@@ -43,9 +43,9 @@ typedef struct	s_st
 	uint64_t		time_eat;
 	uint64_t		time_sleep;
 	uint64_t		time_start;
-	sem_t			*mutex_status;
-	sem_t			*mutex_print;
-	sem_t			*mutex_forks;
+	sem_t			*sem_status;
+	sem_t			*sem_print;
+	sem_t			*sem_forks;
 	struct s_ph		*ph;
 }				t_st;
 
@@ -70,6 +70,7 @@ uint64_t		current_time(void);
 void			ft_putchar_fd(char c, int fd);
 void			ft_putstr_fd(const char *s, int fd);
 void			ft_putnbr_fd(int n, int fd);
+sem_t			*ft_sem_open(const char *name, int qty);
 
 /*
 ** PARSE & INITIALIZE

@@ -28,12 +28,12 @@ int			eat_some(t_ph *ph)
 
 int			take_forks(t_ph *ph)
 {
-	if (sem_wait(ph->st->mutex_forks[ph->fork_left]))
-		return (error(18));
+	if (sem_wait(ph->st->sem_forks))
+		return (error(15));
 	if (!ph->st->stop)
 		print_message(ph, 4);
-	if (sem_wait(ph->st->mutex_forks[ph->fork_right]))
-		return (error(18));
+	if (sem_wait(ph->st->sem_forks))
+		return (error(15));
 	if (!ph->st->stop)
 		print_message(ph, 4);
 	return (EXIT_SUCCESS);
@@ -43,10 +43,10 @@ int			place_forks(t_ph *ph)
 {
 	if (!ph->st->stop)
 		print_message(ph, 2);
-	if (sem_post(ph->st->mutex_forks[ph->fork_left]))
-		return (error(19));
-	if (sem_post(ph->st->mutex_forks[ph->fork_right]))
-		return (error(19));
+	if (sem_post(ph->st->sem_forks))
+		return (error(16));
+	if (sem_post(ph->st->sem_forks))
+		return (error(16));
 	usleep(ph->st->time_sleep * 1000);
 	return (EXIT_SUCCESS);
 }

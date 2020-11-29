@@ -47,3 +47,13 @@ void	ft_putnbr_fd(int n, int fd)
 	}
 	return ;
 }
+
+sem_t	*ft_sem_open(const char *name, int qty)
+{
+	sem_t	*sem;
+
+	sem_unlink(name);
+	if (!(sem = sem_open(name, O_CREAT | O_EXCL, 666, qty)))
+		return (error_ptr(13));
+	return (sem);
+}

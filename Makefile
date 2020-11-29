@@ -5,9 +5,9 @@ OBJ = $(SRC:.c=.o)
 
 # COMPILATION
 CC = gcc
-PHREAD = -lpthread -lrt
+PHREAD = -lpthread
 FLAG = -Wall -Wextra -Werror
-NAME = philo_one
+NAME = philo_two
 
 %.o: %.c
 	$(CC) $(FLAG) -I $(HEADER) -c $< -o $@

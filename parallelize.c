@@ -24,14 +24,14 @@ static void	*check_status(void *arg)
 	t_ph		*ph;
 
 	ph = (t_ph *)arg;
-	if (sem_wait(ph->st->mutex_status))
+	if (sem_wait(ph->st->sem_status))
 	{
 		error(11);
 		return ((void *)1);
 	}
 	if (check_cycle(ph))
 		return ((void *)1);
-	if (sem_post(ph->st->mutex_status))
+	if (sem_post(ph->st->sem_status))
 	{
 		error(11);
 		return ((void *)1);

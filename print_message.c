@@ -24,8 +24,8 @@ int		print_message(t_ph *ph, int msg_num)
 {
 	uint64_t	curr_time;
 
-	if (sem_wait(ph->st->mutex_print))
-		return (error(20));
+	if (sem_wait(ph->st->sem_print))
+		return (error(17));
 	if ((curr_time = current_time()) == 1)
 		return (EXIT_FAILURE);
 	ft_putnbr_fd((int)(curr_time - ph->st->time_start), STDOUT_FILENO);
@@ -35,7 +35,7 @@ int		print_message(t_ph *ph, int msg_num)
 		ft_putnbr_fd(ph->number + 1, STDOUT_FILENO);
 	}
 	ft_putstr_fd(g_msg[msg_num - 1].desc, STDOUT_FILENO);
-	if (sem_post(ph->st->mutex_print))
-		return (error(20));
+	if (sem_post(ph->st->sem_print))
+		return (error(17));
 	return (EXIT_SUCCESS);
 }

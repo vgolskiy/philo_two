@@ -13,8 +13,6 @@ static t_ph	*init_ph(t_st *st)
 		ph[i].number = i;
 		ph[i].eating = false;
 		ph[i].eat_qty = 0;
-		ph[i].fork_left = i;
-		ph[i].fork_right = (i + 1) % st->qty;
 		ph[i].st = st;
 	}
 	return (ph);
@@ -22,19 +20,11 @@ static t_ph	*init_ph(t_st *st)
 
 static int	parse_args2(t_st *st)
 {
-	int	i;
-
-	if (pthread_mutex_init(&st->mutex_status, 00)
-		|| pthread_mutex_init(&st->mutex_print, 00))
-		return (error(16));
-	if (!(st->mutex_forks =
-	(pthread_mutex_t *)malloc(st->qty * sizeof(pthread_mutex_t))))
-		return (error(9));
+	if (!(st->sem_forks = ft_sem_open("sem_forks", st->qty))
+		|| (!(st->sem_print = ft_sem_open("sem_print", 1)))
+		|| (!(st->sem_status = ft_sem_open("sem_status", 0))))
+		return (EXIT_FAILURE);
 	st->stop = false;
-	i = -1;
-	while (++i < st->qty)
-		if (pthread_mutex_init(&st->mutex_forks[i], 00))
-			return (error(16));
 	return (EXIT_SUCCESS);
 }
 

@@ -15,8 +15,8 @@ int			main(int argc, char **argv)
 	}
 	if (parallelize(&st))
 		return (free_all(&st) && EXIT_FAILURE);
-	if (sem_wait(st.mutex_status)
-		|| sem_post(st.mutex_status))
+	if (sem_wait(st.sem_status)
+		|| sem_post(st.sem_status))
 		return (free_all(&st) && EXIT_FAILURE);
 	if (free_all(&st))
 		return (EXIT_FAILURE);
